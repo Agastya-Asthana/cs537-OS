@@ -1,0 +1,725 @@
+starting build
+
+**********************************************************************
+
+Test build
+build xv6 using make
+
+**********************************************************************
+Trying to build project using make
+make
+gcc  -I include -nostdinc -Wall -Werror -ggdb -fno-pic -fno-builtin -fno-strict-aliasing -fno-stack-protector -m32 \
+	-M -MG kernel/vm.c -MF kernel/vm.d -MT kernel/vm.d -MT kernel/vm.o
+gcc  -I include -nostdinc -Wall -Werror -ggdb -fno-pic -fno-builtin -fno-strict-aliasing -fno-stack-protector -m32 \
+	-M -MG kernel/kalloc.c -MF kernel/kalloc.d -MT kernel/kalloc.d -MT kernel/kalloc.o
+gcc  -I include -nostdinc -Wall -Werror -ggdb -fno-pic -fno-builtin -fno-strict-aliasing -fno-stack-protector -m32 -c -o kernel/kalloc.o kernel/kalloc.c
+gcc  -I include -nostdinc -Wall -Werror -ggdb -fno-pic -fno-builtin -fno-strict-aliasing -fno-stack-protector -m32 -c -o kernel/vm.o kernel/vm.c
+ld  -m    elf_i386 -nostdlib --omagic \
+	--section-start=.text=0x100000 --entry=main --output=kernel/kernel \
+	kernel/multiboot.o kernel/data.o kernel/bio.o kernel/console.o kernel/exec.o kernel/file.o kernel/fs.o kernel/ide.o kernel/ioapic.o kernel/kalloc.o kernel/kbd.o kernel/lapic.o kernel/main.o kernel/mp.o kernel/picirq.o kernel/pipe.o kernel/proc.o kernel/spinlock.o kernel/string.o kernel/swtch.o kernel/syscall.o kernel/sysfile.o kernel/sysproc.o kernel/timer.o kernel/trapasm.o kernel/trap.o kernel/uart.o kernel/vectors.o kernel/vm.o \
+	-b binary initcode bootother
+dd if=/dev/zero of=xv6.img count=10000
+10000+0 records in
+10000+0 records out
+5120000 bytes (5.1 MB, 4.9 MiB) copied, 0.0108 s, 474 MB/s
+dd if=kernel/bootblock of=xv6.img conv=notrunc
+1+0 records in
+1+0 records out
+512 bytes copied, 5.4701e-05 s, 9.4 MB/s
+dd if=kernel/kernel of=xv6.img seek=1 conv=notrunc
+277+1 records in
+277+1 records out
+142032 bytes (142 kB, 139 KiB) copied, 0.000429648 s, 331 MB/s
+
+
+test build PASSED
+ (build xv6 using make)
+
+starting test_1
+
+**********************************************************************
+
+Test test_1
+Test to make sure that the number of free pages is greater than 0
+
+**********************************************************************
+Running xv6 user progam /home/cs537-1/tests/P5/ctests/test_1.c
+Trying to build project using make
+make
+gcc  -I include -nostdinc -Wall -Werror -ggdb -fno-pic -fno-builtin -fno-strict-aliasing -fno-stack-protector -m32 \
+	-M -MG user/tester.c -MF user/tester.d -MT user/tester.d -MT user/tester.o
+gcc  -I include -nostdinc -Wall -Werror -ggdb -fno-pic -fno-builtin -fno-strict-aliasing -fno-stack-protector -m32 -c -o user/tester.o user/tester.c
+ld  -m    elf_i386 -nostdlib --omagic --entry=main --section-start=.text=0x0 --output=user/bin/tester user/tester.o user/ulib.o user/usys.o user/printf.o user/umalloc.o
+cp user/bin/tester fs/tester
+./tools/mkfs fs.img fs
+used 29 (bit 1 ninode 26) free 29 total 1024
+rm
+sh
+forktest
+README
+mkdir
+stressfs
+tester
+cat
+echo
+zombie
+usertests
+ln
+wc
+kill
+ls
+init
+grep
+balloc: first 451 blocks have been allocated
+balloc: write bitmap block at sector 28
+rm user/bin/tester
+make qemu-nox 
+Ctrl+a h for help
+timeout --foreground --preserve-status 900 /p/course/cs537-remzi/ta/tools/qemu -nographic -hdb fs.img xv6.img -smp 1
+WARNING: Image format was not specified for 'fs.img' and probing guessed raw.
+         Automatically detecting the format is dangerous for raw images, write operations on block 0 will be restricted.
+         Specify the 'raw' format explicitly to remove the restrictions.
+WARNING: Image format was not specified for 'xv6.img' and probing guessed raw.
+         Automatically detecting the format is dangerous for raw images, write operations on block 0 will be restricted.
+         Specify the 'raw' format explicitly to remove the restrictions.
+c[?7l[2J[0mSeaBIOS (version 1.15.0-1)
+
+
+iPXE (https://ipxe.org) 00:03.0 CA00 PCI2.10 PnP PMM+07F8B4A0+07ECB4A0 CA00
+Press Ctrl-B to configure iPXE (PCI 00:03.0)...                                                                               
+
+
+Booting from Hard Disk..xv6...
+cpu0: starting
+init: starting sh
+$ tester
+tester
+XV6_COW	 SUCCESS
+
+
+test test_1 PASSED (1 of 1)
+ (Test to make sure that the number of free pages is greater than 0)
+
+starting test_2
+
+**********************************************************************
+
+Test test_2
+Test that sbrk() reduces the number of free pages
+
+**********************************************************************
+Running xv6 user progam /home/cs537-1/tests/P5/ctests/test_2.c
+Trying to build project using make
+make
+gcc  -I include -nostdinc -Wall -Werror -ggdb -fno-pic -fno-builtin -fno-strict-aliasing -fno-stack-protector -m32 \
+	-M -MG user/tester.c -MF user/tester.d -MT user/tester.d -MT user/tester.o
+gcc  -I include -nostdinc -Wall -Werror -ggdb -fno-pic -fno-builtin -fno-strict-aliasing -fno-stack-protector -m32 -c -o user/tester.o user/tester.c
+ld  -m    elf_i386 -nostdlib --omagic --entry=main --section-start=.text=0x0 --output=user/bin/tester user/tester.o user/ulib.o user/usys.o user/printf.o user/umalloc.o
+cp user/bin/tester fs/tester
+./tools/mkfs fs.img fs
+used 29 (bit 1 ninode 26) free 29 total 1024
+rm
+sh
+forktest
+README
+mkdir
+stressfs
+tester
+cat
+echo
+zombie
+usertests
+ln
+wc
+kill
+ls
+init
+grep
+balloc: first 452 blocks have been allocated
+balloc: write bitmap block at sector 28
+rm user/bin/tester
+make qemu-nox 
+Ctrl+a h for help
+timeout --foreground --preserve-status 900 /p/course/cs537-remzi/ta/tools/qemu -nographic -hdb fs.img xv6.img -smp 1
+WARNING: Image format was not specified for 'fs.img' and probing guessed raw.
+         Automatically detecting the format is dangerous for raw images, write operations on block 0 will be restricted.
+         Specify the 'raw' format explicitly to remove the restrictions.
+WARNING: Image format was not specified for 'xv6.img' and probing guessed raw.
+         Automatically detecting the format is dangerous for raw images, write operations on block 0 will be restricted.
+         Specify the 'raw' format explicitly to remove the restrictions.
+c[?7l[2J[0mSeaBIOS (version 1.15.0-1)
+
+
+iPXE (https://ipxe.org) 00:03.0 CA00 PCI2.10 PnP PMM+07F8B4A0+07ECB4A0 CA00
+Press Ctrl-B to configure iPXE (PCI 00:03.0)...                                                                               
+
+
+Booting from Hard Disk..xv6...
+cpu0: starting
+init: starting sh
+$ tester
+tester
+XV6_COW	 SUCCESS
+
+
+test test_2 PASSED (1 of 1)
+ (Test that sbrk() reduces the number of free pages)
+
+starting test_3
+
+**********************************************************************
+
+Test test_3
+Test that pages are copied on write and that the parent values are not affected by the child
+
+**********************************************************************
+Running xv6 user progam /home/cs537-1/tests/P5/ctests/test_3.c
+Trying to build project using make
+make
+gcc  -I include -nostdinc -Wall -Werror -ggdb -fno-pic -fno-builtin -fno-strict-aliasing -fno-stack-protector -m32 \
+	-M -MG user/tester.c -MF user/tester.d -MT user/tester.d -MT user/tester.o
+gcc  -I include -nostdinc -Wall -Werror -ggdb -fno-pic -fno-builtin -fno-strict-aliasing -fno-stack-protector -m32 -c -o user/tester.o user/tester.c
+ld  -m    elf_i386 -nostdlib --omagic --entry=main --section-start=.text=0x0 --output=user/bin/tester user/tester.o user/ulib.o user/usys.o user/printf.o user/umalloc.o
+cp user/bin/tester fs/tester
+./tools/mkfs fs.img fs
+used 29 (bit 1 ninode 26) free 29 total 1024
+rm
+sh
+forktest
+README
+mkdir
+stressfs
+tester
+cat
+echo
+zombie
+usertests
+ln
+wc
+kill
+ls
+init
+grep
+balloc: first 453 blocks have been allocated
+balloc: write bitmap block at sector 28
+rm user/bin/tester
+make qemu-nox 
+Ctrl+a h for help
+timeout --foreground --preserve-status 900 /p/course/cs537-remzi/ta/tools/qemu -nographic -hdb fs.img xv6.img -smp 1
+WARNING: Image format was not specified for 'fs.img' and probing guessed raw.
+         Automatically detecting the format is dangerous for raw images, write operations on block 0 will be restricted.
+         Specify the 'raw' format explicitly to remove the restrictions.
+WARNING: Image format was not specified for 'xv6.img' and probing guessed raw.
+         Automatically detecting the format is dangerous for raw images, write operations on block 0 will be restricted.
+         Specify the 'raw' format explicitly to remove the restrictions.
+c[?7l[2J[0mSeaBIOS (version 1.15.0-1)
+
+
+iPXE (https://ipxe.org) 00:03.0 CA00 PCI2.10 PnP PMM+07F8B4A0+07ECB4A0 CA00
+Press Ctrl-B to configure iPXE (PCI 00:03.0)...                                                                               
+
+
+Booting from Hard Disk..xv6...
+cpu0: starting
+init: starting sh
+$ tester
+tester
+XV6_COW	 SUCCESS
+
+
+test test_3 PASSED (1 of 1)
+ (Test that pages are copied on write and that the parent values are not affected by the child)
+
+starting test_4
+
+**********************************************************************
+
+Test test_4
+Test that all pages are not copied when process forks - 1
+
+**********************************************************************
+Running xv6 user progam /home/cs537-1/tests/P5/ctests/test_4.c
+Trying to build project using make
+make
+gcc  -I include -nostdinc -Wall -Werror -ggdb -fno-pic -fno-builtin -fno-strict-aliasing -fno-stack-protector -m32 \
+	-M -MG user/tester.c -MF user/tester.d -MT user/tester.d -MT user/tester.o
+gcc  -I include -nostdinc -Wall -Werror -ggdb -fno-pic -fno-builtin -fno-strict-aliasing -fno-stack-protector -m32 -c -o user/tester.o user/tester.c
+ld  -m    elf_i386 -nostdlib --omagic --entry=main --section-start=.text=0x0 --output=user/bin/tester user/tester.o user/ulib.o user/usys.o user/printf.o user/umalloc.o
+cp user/bin/tester fs/tester
+./tools/mkfs fs.img fs
+used 29 (bit 1 ninode 26) free 29 total 1024
+rm
+sh
+forktest
+README
+mkdir
+stressfs
+tester
+cat
+echo
+zombie
+usertests
+ln
+wc
+kill
+ls
+init
+grep
+balloc: first 452 blocks have been allocated
+balloc: write bitmap block at sector 28
+rm user/bin/tester
+make qemu-nox 
+Ctrl+a h for help
+timeout --foreground --preserve-status 900 /p/course/cs537-remzi/ta/tools/qemu -nographic -hdb fs.img xv6.img -smp 1
+WARNING: Image format was not specified for 'fs.img' and probing guessed raw.
+         Automatically detecting the format is dangerous for raw images, write operations on block 0 will be restricted.
+         Specify the 'raw' format explicitly to remove the restrictions.
+WARNING: Image format was not specified for 'xv6.img' and probing guessed raw.
+         Automatically detecting the format is dangerous for raw images, write operations on block 0 will be restricted.
+         Specify the 'raw' format explicitly to remove the restrictions.
+c[?7l[2J[0mSeaBIOS (version 1.15.0-1)
+
+
+iPXE (https://ipxe.org) 00:03.0 CA00 PCI2.10 PnP PMM+07F8B4A0+07ECB4A0 CA00
+Press Ctrl-B to configure iPXE (PCI 00:03.0)...                                                                               
+
+
+Booting from Hard Disk..xv6...
+cpu0: starting
+init: starting sh
+$ tester
+tester
+XV6_COW	 SUCCESS
+
+
+test test_4 PASSED (1 of 1)
+ (Test that all pages are not copied when process forks - 1)
+
+starting test_5
+
+**********************************************************************
+
+Test test_5
+Test that all pages are not copied when process forks - 2
+
+**********************************************************************
+Running xv6 user progam /home/cs537-1/tests/P5/ctests/test_5.c
+Trying to build project using make
+make
+gcc  -I include -nostdinc -Wall -Werror -ggdb -fno-pic -fno-builtin -fno-strict-aliasing -fno-stack-protector -m32 \
+	-M -MG user/tester.c -MF user/tester.d -MT user/tester.d -MT user/tester.o
+gcc  -I include -nostdinc -Wall -Werror -ggdb -fno-pic -fno-builtin -fno-strict-aliasing -fno-stack-protector -m32 -c -o user/tester.o user/tester.c
+ld  -m    elf_i386 -nostdlib --omagic --entry=main --section-start=.text=0x0 --output=user/bin/tester user/tester.o user/ulib.o user/usys.o user/printf.o user/umalloc.o
+cp user/bin/tester fs/tester
+./tools/mkfs fs.img fs
+used 29 (bit 1 ninode 26) free 29 total 1024
+rm
+sh
+forktest
+README
+mkdir
+stressfs
+tester
+cat
+echo
+zombie
+usertests
+ln
+wc
+kill
+ls
+init
+grep
+balloc: first 453 blocks have been allocated
+balloc: write bitmap block at sector 28
+rm user/bin/tester
+make qemu-nox 
+Ctrl+a h for help
+timeout --foreground --preserve-status 900 /p/course/cs537-remzi/ta/tools/qemu -nographic -hdb fs.img xv6.img -smp 1
+WARNING: Image format was not specified for 'fs.img' and probing guessed raw.
+         Automatically detecting the format is dangerous for raw images, write operations on block 0 will be restricted.
+         Specify the 'raw' format explicitly to remove the restrictions.
+WARNING: Image format was not specified for 'xv6.img' and probing guessed raw.
+         Automatically detecting the format is dangerous for raw images, write operations on block 0 will be restricted.
+         Specify the 'raw' format explicitly to remove the restrictions.
+c[?7l[2J[0mSeaBIOS (version 1.15.0-1)
+
+
+iPXE (https://ipxe.org) 00:03.0 CA00 PCI2.10 PnP PMM+07F8B4A0+07ECB4A0 CA00
+Press Ctrl-B to configure iPXE (PCI 00:03.0)...                                                                               
+
+
+Booting from Hard Disk..xv6...
+cpu0: starting
+init: starting sh
+$ tester
+tester
+XV6_COW	 SUCCESS
+
+
+test test_5 PASSED (1 of 1)
+ (Test that all pages are not copied when process forks - 2)
+
+starting test_6
+
+**********************************************************************
+
+Test test_6
+Test that pages copied are equal to the pages written to
+
+**********************************************************************
+Running xv6 user progam /home/cs537-1/tests/P5/ctests/test_6.c
+Trying to build project using make
+make
+gcc  -I include -nostdinc -Wall -Werror -ggdb -fno-pic -fno-builtin -fno-strict-aliasing -fno-stack-protector -m32 \
+	-M -MG user/tester.c -MF user/tester.d -MT user/tester.d -MT user/tester.o
+gcc  -I include -nostdinc -Wall -Werror -ggdb -fno-pic -fno-builtin -fno-strict-aliasing -fno-stack-protector -m32 -c -o user/tester.o user/tester.c
+ld  -m    elf_i386 -nostdlib --omagic --entry=main --section-start=.text=0x0 --output=user/bin/tester user/tester.o user/ulib.o user/usys.o user/printf.o user/umalloc.o
+cp user/bin/tester fs/tester
+./tools/mkfs fs.img fs
+used 29 (bit 1 ninode 26) free 29 total 1024
+rm
+sh
+forktest
+README
+mkdir
+stressfs
+tester
+cat
+echo
+zombie
+usertests
+ln
+wc
+kill
+ls
+init
+grep
+balloc: first 453 blocks have been allocated
+balloc: write bitmap block at sector 28
+rm user/bin/tester
+make qemu-nox 
+Ctrl+a h for help
+timeout --foreground --preserve-status 900 /p/course/cs537-remzi/ta/tools/qemu -nographic -hdb fs.img xv6.img -smp 1
+WARNING: Image format was not specified for 'fs.img' and probing guessed raw.
+         Automatically detecting the format is dangerous for raw images, write operations on block 0 will be restricted.
+         Specify the 'raw' format explicitly to remove the restrictions.
+WARNING: Image format was not specified for 'xv6.img' and probing guessed raw.
+         Automatically detecting the format is dangerous for raw images, write operations on block 0 will be restricted.
+         Specify the 'raw' format explicitly to remove the restrictions.
+c[?7l[2J[0mSeaBIOS (version 1.15.0-1)
+
+
+iPXE (https://ipxe.org) 00:03.0 CA00 PCI2.10 PnP PMM+07F8B4A0+07ECB4A0 CA00
+Press Ctrl-B to configure iPXE (PCI 00:03.0)...                                                                               
+
+
+Booting from Hard Disk..xv6...
+cpu0: starting
+init: starting sh
+$ tester
+tester
+XV6_COW	 SUCCESS
+
+
+test test_6 PASSED (1 of 1)
+ (Test that pages copied are equal to the pages written to)
+
+starting test_7
+
+**********************************************************************
+
+Test test_7
+Test that multiple copies are created when pages shared by more processes are modified
+
+**********************************************************************
+Running xv6 user progam /home/cs537-1/tests/P5/ctests/test_7.c
+Trying to build project using make
+make
+gcc  -I include -nostdinc -Wall -Werror -ggdb -fno-pic -fno-builtin -fno-strict-aliasing -fno-stack-protector -m32 \
+	-M -MG user/tester.c -MF user/tester.d -MT user/tester.d -MT user/tester.o
+gcc  -I include -nostdinc -Wall -Werror -ggdb -fno-pic -fno-builtin -fno-strict-aliasing -fno-stack-protector -m32 -c -o user/tester.o user/tester.c
+ld  -m    elf_i386 -nostdlib --omagic --entry=main --section-start=.text=0x0 --output=user/bin/tester user/tester.o user/ulib.o user/usys.o user/printf.o user/umalloc.o
+cp user/bin/tester fs/tester
+./tools/mkfs fs.img fs
+used 29 (bit 1 ninode 26) free 29 total 1024
+rm
+sh
+forktest
+README
+mkdir
+stressfs
+tester
+cat
+echo
+zombie
+usertests
+ln
+wc
+kill
+ls
+init
+grep
+balloc: first 453 blocks have been allocated
+balloc: write bitmap block at sector 28
+rm user/bin/tester
+make qemu-nox 
+Ctrl+a h for help
+timeout --foreground --preserve-status 900 /p/course/cs537-remzi/ta/tools/qemu -nographic -hdb fs.img xv6.img -smp 1
+WARNING: Image format was not specified for 'fs.img' and probing guessed raw.
+         Automatically detecting the format is dangerous for raw images, write operations on block 0 will be restricted.
+         Specify the 'raw' format explicitly to remove the restrictions.
+WARNING: Image format was not specified for 'xv6.img' and probing guessed raw.
+         Automatically detecting the format is dangerous for raw images, write operations on block 0 will be restricted.
+         Specify the 'raw' format explicitly to remove the restrictions.
+c[?7l[2J[0mSeaBIOS (version 1.15.0-1)
+
+
+iPXE (https://ipxe.org) 00:03.0 CA00 PCI2.10 PnP PMM+07F8B4A0+07ECB4A0 CA00
+Press Ctrl-B to configure iPXE (PCI 00:03.0)...                                                                               
+
+
+Booting from Hard Disk..xv6...
+cpu0: starting
+init: starting sh
+$ tester
+tester
+XV6_COW	 SUCCESS
+
+
+test test_7 PASSED (1 of 1)
+ (Test that multiple copies are created when pages shared by more processes are modified)
+
+starting test_8
+
+**********************************************************************
+
+Test test_8
+Test that pages copied are equal to the pages written to - Modify non-contiguous pages
+
+**********************************************************************
+Running xv6 user progam /home/cs537-1/tests/P5/ctests/test_8.c
+Trying to build project using make
+make
+gcc  -I include -nostdinc -Wall -Werror -ggdb -fno-pic -fno-builtin -fno-strict-aliasing -fno-stack-protector -m32 \
+	-M -MG user/tester.c -MF user/tester.d -MT user/tester.d -MT user/tester.o
+gcc  -I include -nostdinc -Wall -Werror -ggdb -fno-pic -fno-builtin -fno-strict-aliasing -fno-stack-protector -m32 -c -o user/tester.o user/tester.c
+ld  -m    elf_i386 -nostdlib --omagic --entry=main --section-start=.text=0x0 --output=user/bin/tester user/tester.o user/ulib.o user/usys.o user/printf.o user/umalloc.o
+cp user/bin/tester fs/tester
+./tools/mkfs fs.img fs
+used 29 (bit 1 ninode 26) free 29 total 1024
+rm
+sh
+forktest
+README
+mkdir
+stressfs
+tester
+cat
+echo
+zombie
+usertests
+ln
+wc
+kill
+ls
+init
+grep
+balloc: first 453 blocks have been allocated
+balloc: write bitmap block at sector 28
+rm user/bin/tester
+make qemu-nox 
+Ctrl+a h for help
+timeout --foreground --preserve-status 900 /p/course/cs537-remzi/ta/tools/qemu -nographic -hdb fs.img xv6.img -smp 1
+WARNING: Image format was not specified for 'fs.img' and probing guessed raw.
+         Automatically detecting the format is dangerous for raw images, write operations on block 0 will be restricted.
+         Specify the 'raw' format explicitly to remove the restrictions.
+WARNING: Image format was not specified for 'xv6.img' and probing guessed raw.
+         Automatically detecting the format is dangerous for raw images, write operations on block 0 will be restricted.
+         Specify the 'raw' format explicitly to remove the restrictions.
+c[?7l[2J[0mSeaBIOS (version 1.15.0-1)
+
+
+iPXE (https://ipxe.org) 00:03.0 CA00 PCI2.10 PnP PMM+07F8B4A0+07ECB4A0 CA00
+Press Ctrl-B to configure iPXE (PCI 00:03.0)...                                                                               
+
+
+Booting from Hard Disk..xv6...
+cpu0: starting
+init: starting sh
+$ tester
+tester
+XV6_COW	 SUCCESS
+
+
+test test_8 PASSED (1 of 1)
+ (Test that pages copied are equal to the pages written to - Modify non-contiguous pages)
+
+starting test_9
+
+**********************************************************************
+
+Test test_9
+Test reference counting for CoW
+
+**********************************************************************
+Running xv6 user progam /home/cs537-1/tests/P5/ctests/test_9.c
+Trying to build project using make
+make
+gcc  -I include -nostdinc -Wall -Werror -ggdb -fno-pic -fno-builtin -fno-strict-aliasing -fno-stack-protector -m32 \
+	-M -MG user/tester.c -MF user/tester.d -MT user/tester.d -MT user/tester.o
+gcc  -I include -nostdinc -Wall -Werror -ggdb -fno-pic -fno-builtin -fno-strict-aliasing -fno-stack-protector -m32 -c -o user/tester.o user/tester.c
+ld  -m    elf_i386 -nostdlib --omagic --entry=main --section-start=.text=0x0 --output=user/bin/tester user/tester.o user/ulib.o user/usys.o user/printf.o user/umalloc.o
+cp user/bin/tester fs/tester
+./tools/mkfs fs.img fs
+used 29 (bit 1 ninode 26) free 29 total 1024
+rm
+sh
+forktest
+README
+mkdir
+stressfs
+tester
+cat
+echo
+zombie
+usertests
+ln
+wc
+kill
+ls
+init
+grep
+balloc: first 452 blocks have been allocated
+balloc: write bitmap block at sector 28
+rm user/bin/tester
+make qemu-nox 
+Ctrl+a h for help
+timeout --foreground --preserve-status 900 /p/course/cs537-remzi/ta/tools/qemu -nographic -hdb fs.img xv6.img -smp 1
+WARNING: Image format was not specified for 'fs.img' and probing guessed raw.
+         Automatically detecting the format is dangerous for raw images, write operations on block 0 will be restricted.
+         Specify the 'raw' format explicitly to remove the restrictions.
+WARNING: Image format was not specified for 'xv6.img' and probing guessed raw.
+         Automatically detecting the format is dangerous for raw images, write operations on block 0 will be restricted.
+         Specify the 'raw' format explicitly to remove the restrictions.
+c[?7l[2J[0mSeaBIOS (version 1.15.0-1)
+
+
+iPXE (https://ipxe.org) 00:03.0 CA00 PCI2.10 PnP PMM+07F8B4A0+07ECB4A0 CA00
+Press Ctrl-B to configure iPXE (PCI 00:03.0)...                                                                               
+
+
+Booting from Hard Disk..xv6...
+cpu0: starting
+init: starting sh
+$ tester
+tester
+XV6_COW	 SUCCESS
+
+
+test test_9 PASSED (1 of 1)
+ (Test reference counting for CoW)
+
+starting test_10
+
+**********************************************************************
+
+Test test_10
+Test reference counting for CoW- new allocations from child don't affect parent
+
+**********************************************************************
+Running xv6 user progam /home/cs537-1/tests/P5/ctests/test_10.c
+Trying to build project using make
+make
+gcc  -I include -nostdinc -Wall -Werror -ggdb -fno-pic -fno-builtin -fno-strict-aliasing -fno-stack-protector -m32 \
+	-M -MG user/tester.c -MF user/tester.d -MT user/tester.d -MT user/tester.o
+gcc  -I include -nostdinc -Wall -Werror -ggdb -fno-pic -fno-builtin -fno-strict-aliasing -fno-stack-protector -m32 -c -o user/tester.o user/tester.c
+ld  -m    elf_i386 -nostdlib --omagic --entry=main --section-start=.text=0x0 --output=user/bin/tester user/tester.o user/ulib.o user/usys.o user/printf.o user/umalloc.o
+cp user/bin/tester fs/tester
+./tools/mkfs fs.img fs
+used 29 (bit 1 ninode 26) free 29 total 1024
+rm
+sh
+forktest
+README
+mkdir
+stressfs
+tester
+cat
+echo
+zombie
+usertests
+ln
+wc
+kill
+ls
+init
+grep
+balloc: first 452 blocks have been allocated
+balloc: write bitmap block at sector 28
+rm user/bin/tester
+make qemu-nox 
+Ctrl+a h for help
+timeout --foreground --preserve-status 900 /p/course/cs537-remzi/ta/tools/qemu -nographic -hdb fs.img xv6.img -smp 1
+WARNING: Image format was not specified for 'fs.img' and probing guessed raw.
+         Automatically detecting the format is dangerous for raw images, write operations on block 0 will be restricted.
+         Specify the 'raw' format explicitly to remove the restrictions.
+WARNING: Image format was not specified for 'xv6.img' and probing guessed raw.
+         Automatically detecting the format is dangerous for raw images, write operations on block 0 will be restricted.
+         Specify the 'raw' format explicitly to remove the restrictions.
+c[?7l[2J[0mSeaBIOS (version 1.15.0-1)
+
+
+iPXE (https://ipxe.org) 00:03.0 CA00 PCI2.10 PnP PMM+07F8B4A0+07ECB4A0 CA00
+Press Ctrl-B to configure iPXE (PCI 00:03.0)...                                                                               
+
+
+Booting from Hard Disk..xv6...
+cpu0: starting
+init: starting sh
+$ tester
+tester
+XV6_COW	 SUCCESS
+
+
+test test_10 PASSED (1 of 1)
+ (Test reference counting for CoW- new allocations from child don't affect parent)
+
+**********************************************************************
+Summary:
+test build PASSED
+ (build xv6 using make)
+
+test test_1 PASSED (1 of 1)
+ (Test to make sure that the number of free pages is greater than 0)
+
+test test_2 PASSED (1 of 1)
+ (Test that sbrk() reduces the number of free pages)
+
+test test_3 PASSED (1 of 1)
+ (Test that pages are copied on write and that the parent values are not affected by the child)
+
+test test_4 PASSED (1 of 1)
+ (Test that all pages are not copied when process forks - 1)
+
+test test_5 PASSED (1 of 1)
+ (Test that all pages are not copied when process forks - 2)
+
+test test_6 PASSED (1 of 1)
+ (Test that pages copied are equal to the pages written to)
+
+test test_7 PASSED (1 of 1)
+ (Test that multiple copies are created when pages shared by more processes are modified)
+
+test test_8 PASSED (1 of 1)
+ (Test that pages copied are equal to the pages written to - Modify non-contiguous pages)
+
+test test_9 PASSED (1 of 1)
+ (Test reference counting for CoW)
+
+test test_10 PASSED (1 of 1)
+ (Test reference counting for CoW- new allocations from child don't affect parent)
+
+Passed 11 of 11 tests.
+Overall 11 of 11
+Points 10 of 10
