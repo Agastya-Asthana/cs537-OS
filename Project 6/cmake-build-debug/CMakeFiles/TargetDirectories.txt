@@ -1,0 +1,3 @@
+/Users/agastyaasthana/Library/CloudStorage/OneDrive-UW-Madison/CS 537 - OS/Project 6/cmake-build-debug/CMakeFiles/Project_6.dir
+/Users/agastyaasthana/Library/CloudStorage/OneDrive-UW-Madison/CS 537 - OS/Project 6/cmake-build-debug/CMakeFiles/edit_cache.dir
+/Users/agastyaasthana/Library/CloudStorage/OneDrive-UW-Madison/CS 537 - OS/Project 6/cmake-build-debug/CMakeFiles/rebuild_cache.dir
