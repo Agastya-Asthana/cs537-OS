@@ -1,0 +1,7 @@
+{
+    "editor.tabCompletion": "on",
+    "diffEditor.codeLens": true,
+    "files.associations": {
+        "server_functions.h": "c"
+    }
+}
