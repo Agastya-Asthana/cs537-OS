@@ -1,0 +1,4 @@
+/Applications/CLion.app/Contents/bin/cmake/mac/bin/cmake -DCMAKE_BUILD_TYPE=Debug -DCMAKE_MAKE_PROGRAM=/Applications/CLion.app/Contents/bin/ninja/mac/ninja -G Ninja -S "/Users/agastyaasthana/Library/CloudStorage/OneDrive-UW-Madison/CS 537 - OS/Project 7 - Drive Recovery" -B "/Users/agastyaasthana/Library/CloudStorage/OneDrive-UW-Madison/CS 537 - OS/Project 7 - Drive Recovery/cmake-build-debug"
+-- Configuring done
+-- Generating done
+-- Build files have been written to: /Users/agastyaasthana/Library/CloudStorage/OneDrive-UW-Madison/CS 537 - OS/Project 7 - Drive Recovery/cmake-build-debug

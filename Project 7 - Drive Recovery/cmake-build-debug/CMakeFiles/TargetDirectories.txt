@@ -1,0 +1,3 @@
+/Users/agastyaasthana/Library/CloudStorage/OneDrive-UW-Madison/CS 537 - OS/Project 7 - Drive Recovery/cmake-build-debug/CMakeFiles/Project_7___Drive_Recovery.dir
+/Users/agastyaasthana/Library/CloudStorage/OneDrive-UW-Madison/CS 537 - OS/Project 7 - Drive Recovery/cmake-build-debug/CMakeFiles/edit_cache.dir
+/Users/agastyaasthana/Library/CloudStorage/OneDrive-UW-Madison/CS 537 - OS/Project 7 - Drive Recovery/cmake-build-debug/CMakeFiles/rebuild_cache.dir

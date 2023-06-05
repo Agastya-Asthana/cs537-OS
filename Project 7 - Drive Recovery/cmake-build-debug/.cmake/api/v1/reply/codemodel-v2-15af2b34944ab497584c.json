@@ -1,0 +1,60 @@
+{
+	"configurations" : 
+	[
+		{
+			"directories" : 
+			[
+				{
+					"build" : ".",
+					"jsonFile" : "directory-.-Debug-f5ebdc15457944623624.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.25"
+					},
+					"projectIndex" : 0,
+					"source" : ".",
+					"targetIndexes" : 
+					[
+						0
+					]
+				}
+			],
+			"name" : "Debug",
+			"projects" : 
+			[
+				{
+					"directoryIndexes" : 
+					[
+						0
+					],
+					"name" : "Project_7___Drive_Recovery",
+					"targetIndexes" : 
+					[
+						0
+					]
+				}
+			],
+			"targets" : 
+			[
+				{
+					"directoryIndex" : 0,
+					"id" : "Project_7___Drive_Recovery::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-Project_7___Drive_Recovery-Debug-bcf9a40646a17536d3db.json",
+					"name" : "Project_7___Drive_Recovery",
+					"projectIndex" : 0
+				}
+			]
+		}
+	],
+	"kind" : "codemodel",
+	"paths" : 
+	{
+		"build" : "/Users/agastyaasthana/Library/CloudStorage/OneDrive-UW-Madison/CS 537 - OS/Project 7 - Drive Recovery/cmake-build-debug",
+		"source" : "/Users/agastyaasthana/Library/CloudStorage/OneDrive-UW-Madison/CS 537 - OS/Project 7 - Drive Recovery"
+	},
+	"version" : 
+	{
+		"major" : 2,
+		"minor" : 4
+	}
+}
