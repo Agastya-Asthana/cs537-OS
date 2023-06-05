@@ -1,0 +1,11 @@
+lrwxr-xr-x@ 1 root  wheel  11 Oct 28 03:43 /tmp -> private/tmp
+:55 .
+drwxr-xr-x   5 agastyaasthana  staff    160 Feb 12 11:08 ..
+drwxr-xr-x   8 agastyaasthana  staff    256 Feb 21 12:53 .idea
+-rw-r--r--   1 agastyaasthana  staff    166 Feb 18 15:56 CMakeLists.txt
+-rw-r--r--   1 agastyaasthana  staff    840 Feb 18 15:59 ForkTest.c
+drwxr-xr-x  12 agastyaasthana  staff    384 Feb 21 12:55 cmake-build-debug
+-rwxr-xr-x   1 agastyaasthana  staff  34945 Feb 19 15:58 main
+-rw-r--r--@  1 agastyaasthana  staff   8411 Feb 21 12:55 main.c
+-rw-r--r--   1 agastyaasthana  staff    601 Feb 20 22:03 output.txt
+-rw-r--r--   1 agastyaasthana  staff     39 Feb 20 22:30 test.txt

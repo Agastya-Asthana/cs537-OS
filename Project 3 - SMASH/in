@@ -1,0 +1,3 @@
+/bin/uname
+/bin/echo Hello World
+exit
